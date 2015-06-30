@@ -9,7 +9,12 @@ public class Test {
 		Pawn p3 = new Pawn(0, 3, PlayingPiece.COLOR_BLACK);
 		Pawn p4 = new Pawn(0, 4, PlayingPiece.COLOR_BLACK);
 
-		
+//		Board board = new Board();
+//		//check if first move is white
+//		board.play(PlayingPiece.COLOR_WHITE, xFrom, yFrom, xTo, yTo);
+//		board.play(PlayingPiece.COLOR_BLACK, xFrom, yFrom, xTo, yTo);
+//		board.play(PlayingPiece.COLOR_WHITE, xFrom, yFrom, xTo, yTo);
+//		board.play(PlayingPiece.COLOR_BLACK, xFrom, yFrom, xTo, yTo);
 	}
 
 }
