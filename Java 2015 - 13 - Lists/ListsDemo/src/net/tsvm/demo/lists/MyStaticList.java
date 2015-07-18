@@ -1,11 +1,14 @@
 package net.tsvm.demo.lists;
 
-public class MyStaticList {
+import java.util.Iterator;
+
+
+public class MyStaticList<T> implements Iterable<T> {
 	private static final int INITIAL_CAPACITY = 3; 
-	private Object[] elements = new Object[INITIAL_CAPACITY];
+	private T[] elements =(T[]) new Object[INITIAL_CAPACITY];
 	private int count = 0;
 	
-	public void add(Object element) {
+	public void add(T element) {
 		if (count >= elements.length) {
 			extendElements();			
 		}
@@ -13,23 +16,23 @@ public class MyStaticList {
 		count++;
 	}
 	
-	public void add(Object element, int position) {
+	public void add(T element, int position) {
 		if (count >= elements.length) {
 			extendElements();
 		}
 		
-		Object previousElement = elements[position];
+		T previousElement = elements[position];
 		elements[position] = element;
 		count++;
 		
 		for (int i = position + 1; i < count; i++) {
-			Object temp = elements[i];
+			T temp = elements[i];
 			elements[i] = previousElement;
 			previousElement = temp;
 		}
 	}
 	
-	public boolean remove(Object element) {
+	public boolean remove(T element) {
 		int pos = getPosition(element);
 		
 		if (pos >= 0) {
@@ -43,7 +46,7 @@ public class MyStaticList {
 		return false;
 	}
 	
-	public int getPosition(Object element) {
+	public int getPosition(T element) {
 		for (int i = 0; i < count; i++) {
 			if ((elements[i] != null && elements[i].equals(element))
 					|| (element == null && elements[i] == null)) {
@@ -54,7 +57,7 @@ public class MyStaticList {
 		return -1;
 	}
 	
-	public Object get(int position) {
+	public T get(int position) {
 		if (position >= 0 && position < count) {
 			return elements[position];
 		}
@@ -69,13 +72,29 @@ public class MyStaticList {
 	}
 	
 	private void extendElements() {
-		Object[] extendedArray = new Object[elements.length * 2];
+		T[] extendedArray = (T[])new Object[elements.length * 2];
 		for (int i = 0; i < elements.length; i++) {
 			extendedArray[i] = elements[i];
 		}
 		elements = extendedArray;
 	}
-	
+
+	@Override
+	public Iterator iterator() {		
+		return new Iterator() {
+			private int currentPosition;
+
+			@Override
+			public boolean hasNext() {
+				return currentPosition < count;
+			}
+
+			@Override
+			public Object next() {
+				return elements[currentPosition++];
+			}
+		};
+	}
 	
 	
 }
